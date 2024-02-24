@@ -1,6 +1,8 @@
 # Import required libraries
 import sys
-sys.path.append('/mnt/c/KIMSEONAH/Test_Study/Chatbot/Dr.COCO/model')
+sys.path.append('model')
+
+
 import baby
 
 from dotenv import load_dotenv
