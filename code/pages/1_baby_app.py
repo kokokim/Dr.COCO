@@ -2,7 +2,6 @@
 import sys
 sys.path.append('model')
 
-
 import baby
 
 from dotenv import load_dotenv
