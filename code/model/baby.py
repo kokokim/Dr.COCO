@@ -2,6 +2,16 @@
 
 import os
 from dotenv import load_dotenv
+from langchain.chat_models import ChatOpenAI
+from langchain_community.document_loaders import PyMuPDFLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.vectorstores import FAISS
+from langchain.prompts import PromptTemplate
+import mysql.connector
+from langchain.embeddings import HuggingFaceEmbeddings
+from langchain.chains import ConversationalRetrievalChain
+from langchain.chains.conversation.memory import ConversationSummaryMemory                                        
+import tiktoken
 load_dotenv()
 
 openai_key=os.environ.get("OPENAI_API_KEY")
@@ -29,19 +39,6 @@ raw_data_dir = os.path.join(root_dir, 'data', 'raw')
 
 # 'data/vectordb/baby' 폴더로의 상대 경로
 folder_path = os.path.join(root_dir, 'data', 'vectordb', 'baby')
-
-
-from langchain.chat_models import ChatOpenAI
-from langchain_community.document_loaders import PyMuPDFLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import FAISS
-from langchain.prompts import PromptTemplate
-import mysql.connector
-from langchain_core.output_parsers import StrOutputParser 
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.chains import ConversationalRetrievalChain
-from langchain.chains.conversation.memory import ConversationSummaryMemory                                        
-import tiktoken
 
 
 documents_dicts={

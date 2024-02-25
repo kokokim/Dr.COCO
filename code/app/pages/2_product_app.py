@@ -1,5 +1,10 @@
 import os
 import sys
+import product
+from dotenv import load_dotenv
+import streamlit as st
+from streamlit_chat import message
+
 # 현재 스크립트의 디렉토리 (pages 폴더)
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -14,11 +19,6 @@ model_dir = os.path.join(code_dir, 'model')
 
 # sys.path에 model 폴더의 경로 추가
 sys.path.append(model_dir)
-import product
-
-from dotenv import load_dotenv
-import streamlit as st
-from streamlit_chat import message
 
 
 # Load environment variables
