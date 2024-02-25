@@ -1,22 +1,19 @@
 # 카테고리별 vectordb 생성 후 불러오기
 
 import os
-from dotenv import load_dotenv
+import streamlit as st
 from langchain.chat_models import ChatOpenAI
 from langchain_community.document_loaders import PyMuPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain.prompts import PromptTemplate
-import mysql.connector
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.chains import ConversationalRetrievalChain
 from langchain.chains.conversation.memory import ConversationSummaryMemory                                        
 import tiktoken
-load_dotenv()
 
-openai_key=os.environ.get("OPENAI_API_KEY")
-os.environ['OPENAI_API_KEY'] = openai_key
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
+os.environ['OPENAI_API_KEY'] == st.secrets["OPENAI_API_KEY"]
+os.environ["TOKENIZERS_PARALLELISM"] == st.secrets["TOKENIZERS_PARALLELISM"]
 
 import sys
 # sys.path.append('/mnt/c/KIMSEONAH/Test_Study/Chatbot')

@@ -1,12 +1,9 @@
 # 카테고리별 vectordb 생성 후 불러오기
 
 import os
-from dotenv import load_dotenv
-load_dotenv()
 
-openai_key=os.environ.get("OPENAI_API_KEY")
-os.environ['OPENAI_API_KEY'] = openai_key
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
+os.environ['OPENAI_API_KEY'] == st.secrets["OPENAI_API_KEY"]
+os.environ["TOKENIZERS_PARALLELISM"] == st.secrets["TOKENIZERS_PARALLELISM"]
 
 import sys
 # sys.path.append('/mnt/c/KIMSEONAH/Test_Study/Chatbot')
@@ -31,7 +28,6 @@ folder_path = os.path.join(root_dir, 'data', 'vectordb', 'product')
 from langchain.chat_models import ChatOpenAI
 from langchain_community.vectorstores import FAISS
 from langchain.prompts import PromptTemplate
-import mysql.connector
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.chains import ConversationalRetrievalChain
 from langchain_community.document_loaders.csv_loader import CSVLoader

@@ -1,4 +1,4 @@
-# 여러 카테고리 선택 시 해당 카테고리db 합친 후 답변 생성하기
+# 여러 카테고리 선택 시 해당 카테고리db 합친 후 답변 생성하기 (사용x)
 
 import sys
 sys.path.append('/mnt/c/KIMSEONAH/Test_Study/Chatbot')
@@ -9,7 +9,6 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain.prompts import PromptTemplate
 import mysql.connector
-from langchain_core.output_parsers import StrOutputParser 
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.chains import ConversationalRetrievalChain
 from langchain.chains.conversation.memory import ConversationSummaryMemory                                        

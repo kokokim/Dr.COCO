@@ -1,8 +1,6 @@
 import os
 import sys
-from dotenv import load_dotenv
 import streamlit as st
-from streamlit_chat import message
 
 # 현재 스크립트의 디렉토리 (pages 폴더)
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -19,10 +17,7 @@ model_dir = os.path.join(code_dir, 'model')
 # sys.path에 model 폴더의 경로 추가
 sys.path.append(model_dir)
 
-# import product
-
-# Load environment variables
-load_dotenv()
+import product
 
 # 세션 상태 변수 초기화
 st.set_page_config(page_title="COCO PRODUCTBOT")
@@ -50,8 +45,8 @@ for message in st.session_state.page2_messages: # Display the prior chat message
 if st.session_state.page2_messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
-            # response = product.main(prompt)
-            response="ahahaha"
+            response = product.main(prompt)
+            # response="ahahaha"
             st.write(response)
             message = {"role": "assistant", "content": response}
             st.session_state.page2_messages.append(message) # Add response to message history

@@ -17,17 +17,15 @@ model_dir = os.path.join(code_dir, 'model')
 # sys.path에 model 폴더의 경로 추가
 sys.path.append(model_dir)
 
-# import baby
+import baby
 
-
-from dotenv import load_dotenv
 import streamlit as st
-from streamlit_chat import message
+from openai import OpenAI
+from PIL import Image # 위에서 선언 후 사용해야한다.
 
+client = OpenAI()
 
 # Load environment variables
-load_dotenv()
-
 st.set_page_config(page_title="COCO CHATBOT", page_icon="")
 st.title("COCO CHATBOT")
 st.text("안녕하세요. 코코박사입니다. 원하시는 질문의 카테고리를 선택해주세요")
@@ -70,12 +68,27 @@ for message in st.session_state.page1_messages: # Display the prior chat message
         st.write(message["content"])
         
         
+def generate_img(answer):
+    enhanced_prompt = f"{answer} The setting is after the year 2000, featuring Korean people, with no text included, and the image type should look like a real photograph."
+    response=client.images.generate(
+        model="dall-e-3",
+                prompt=enhanced_prompt,  # 답변을 기반으로 프롬프트 설정
+                size="1024x1024",
+                quality="standard",
+                n=1,
+    )
+    image_url=response.data[0].url
+    return image_url
+        
 # 쿼리를 채팅 엔진에 전달하고 응답을 표시
 if st.session_state.page1_messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
-            # response = baby.main(categories.get(option), prompt)
-            response="hahahah"
+            response = baby.main(categories.get(option), prompt)
             st.write(response)
+            img=generate_img(response)
+            st.image(img)
             message = {"role": "assistant", "content": response}
             st.session_state.page1_messages.append(message) # Add response to message history
+            
+
