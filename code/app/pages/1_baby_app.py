@@ -17,7 +17,7 @@ model_dir = os.path.join(code_dir, 'model')
 # sys.path에 model 폴더의 경로 추가
 sys.path.append(model_dir)
 
-import baby
+# import baby
 
 
 from dotenv import load_dotenv
@@ -74,7 +74,8 @@ for message in st.session_state.page1_messages: # Display the prior chat message
 if st.session_state.page1_messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
-            response = baby.main(categories.get(option), prompt)
+            # response = baby.main(categories.get(option), prompt)
+            response="hahahah"
             st.write(response)
             message = {"role": "assistant", "content": response}
             st.session_state.page1_messages.append(message) # Add response to message history
