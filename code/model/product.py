@@ -9,7 +9,24 @@ os.environ['OPENAI_API_KEY'] = openai_key
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 import sys
-sys.path.append('/mnt/c/KIMSEONAH/Test_Study/Chatbot')
+# sys.path.append('/mnt/c/KIMSEONAH/Test_Study/Chatbot')
+# product.py 파일의 절대 경로
+current_file_path = os.path.abspath(__file__)
+
+# 'model' 폴더의 경로 (baby.py의 부모 디렉토리)
+model_dir = os.path.dirname(current_file_path)
+
+# 'code' 폴더의 경로 ('model'의 부모 디렉토리)
+code_dir = os.path.dirname(model_dir)
+
+# 'DR.COCO' 루트 폴더의 경로 ('code'의 부모 디렉토리)
+root_dir = os.path.dirname(code_dir)
+
+# 'data/raw' 폴더로의 상대 경로
+raw_data_dir = os.path.join(root_dir, 'data', 'raw')
+
+# 'data/vectordb/product' 폴더로의 상대 경로
+folder_path = os.path.join(root_dir, 'data', 'vectordb', 'product')
 
 from langchain.chat_models import ChatOpenAI
 from langchain_community.vectorstores import FAISS
@@ -26,7 +43,9 @@ import tiktoken
 def load_documents_and_create_vector_db(folder_path):
     if not os.path.exists(folder_path) or not os.path.isdir(folder_path):
         os.makedirs(folder_path, exist_ok=True)
-        loader = CSVLoader('/mnt/c/KIMSEONAH/Test_Study/Chatbot/Dr.COCO/data/raw/product_file.csv')
+        csvfilepath=f'{raw_data_dir}/product_file.csv'
+        loader = CSVLoader(csvfilepath)
+        print("로더", loader)
         csv_data=loader.load()
         print(csv_data)
 
@@ -75,8 +94,6 @@ def main(query):
     
     
 # 전역 변수 및 인스턴스 생성
-folder_path = "/mnt/c/KIMSEONAH/Test_Study/Chatbot/Dr.COCO/data/vectordb/product"
-
 tokenizer=tiktoken.get_encoding("cl100k_base")
 def titoken_len(text):
     tokens=tokenizer.encode(text)

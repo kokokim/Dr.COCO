@@ -1,8 +1,24 @@
 # Import required libraries
 import sys
-sys.path.append('model')
+import os
+
+# 현재 스크립트의 디렉토리 (pages 폴더)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# pages 폴더의 상위 폴더 (app 폴더)로 이동
+app_dir = os.path.dirname(current_dir)
+
+# app 폴더의 상위 폴더 (code 폴더)로 이동
+code_dir = os.path.dirname(app_dir)
+
+# model 폴더의 절대 경로를 구성
+model_dir = os.path.join(code_dir, 'model')
+
+# sys.path에 model 폴더의 경로 추가
+sys.path.append(model_dir)
 
 import baby
+
 
 from dotenv import load_dotenv
 import streamlit as st

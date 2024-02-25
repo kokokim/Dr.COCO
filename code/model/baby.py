@@ -9,7 +9,27 @@ os.environ['OPENAI_API_KEY'] = openai_key
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 import sys
-sys.path.append('/mnt/c/KIMSEONAH/Test_Study/Chatbot')
+# sys.path.append('/mnt/c/KIMSEONAH/Test_Study/Chatbot')
+# print("hdhdhd", os.path.relpath(abspath, ""))
+
+# baby.py 파일의 절대 경로
+current_file_path = os.path.abspath(__file__)
+
+# 'model' 폴더의 경로 (baby.py의 부모 디렉토리)
+model_dir = os.path.dirname(current_file_path)
+
+# 'code' 폴더의 경로 ('model'의 부모 디렉토리)
+code_dir = os.path.dirname(model_dir)
+
+# 'DR.COCO' 루트 폴더의 경로 ('code'의 부모 디렉토리)
+root_dir = os.path.dirname(code_dir)
+
+# 'data/raw' 폴더로의 상대 경로
+raw_data_dir = os.path.join(root_dir, 'data', 'raw')
+
+# 'data/vectordb/baby' 폴더로의 상대 경로
+folder_path = os.path.join(root_dir, 'data', 'vectordb', 'baby')
+
 
 from langchain.chat_models import ChatOpenAI
 from langchain_community.document_loaders import PyMuPDFLoader
@@ -39,7 +59,7 @@ def load_documents_and_create_vector_db(folder_path, documents_dict):
     if not os.path.exists(folder_path) or not os.path.isdir(folder_path):
         os.makedirs(folder_path, exist_ok=True)
         for name, category in documents_dict.items():
-            loader = PyMuPDFLoader(f'/mnt/c/KIMSEONAH/Test_Study/Chatbot/Dr.COCO/data/raw/{name}.pdf')
+            loader = PyMuPDFLoader(f'{raw_data_dir}/{name}.pdf')
             docs = loader.load_and_split(text_splitter=splitter)
             documents_dicts[category] = docs
 
@@ -90,7 +110,6 @@ def main(category, query):
     
     
 # 전역 변수 및 인스턴스 생성
-folder_path = "/mnt/c/KIMSEONAH/Test_Study/Chatbot/Dr.COCO/data/vectordb/baby"
 documents_dict = {
     'm육아대백과_신생아키우기': 'raisebaby',
     'm육아대백과_수유': 'breastfeeding',
@@ -126,8 +145,3 @@ If asked about greetings, respond in a conversational way, but if you don't know
 {chat_history}
 ### Friend : {question}
 ### AI: """.strip()
-
-
-# category = "raisebaby"  # 카테고리 선택 예시
-# query = "아기가 밤에 자주 깨요. 어떻게 해야 하나요?"  # 사용자 질문 예시
-# main(category, query)
