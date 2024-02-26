@@ -16,8 +16,9 @@ with open(style_path) as css:
 
     st.write("# Welcome to COCO CHAT👶🏻")
     st.write(" ")
-
-    st.image('../../data/pic/coco.png', width=400)
+    
+    imagepath='../../data/pic/coco.png'
+    st.image(imagepath, width=400)
 
     st.write(" ")
     st.text(
