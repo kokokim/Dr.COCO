@@ -1,10 +1,11 @@
 import streamlit as st
 import os
 
-st.set_page_config(
-    page_title="COCO CHATBOT",
-    page_icon="👶🏻",
-)   
+# st.set_page_config(
+#     page_title="COCO CHATBOT",
+#     page_icon="👶🏻",
+# ) 
+st.set_page_config(page_title="COCO CHATBOT", page_icon="")  
 
 #front 폴더
 script_dir = os.path.dirname(__file__)
