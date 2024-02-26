@@ -36,7 +36,7 @@ style_path = os.path.join(script_dir, "../style.css")
 
 
 with open(style_path) as css:
-    st.set_page_config(page_title="COCO CHATBOT", page_icon="")
+    # st.set_page_config(page_title="COCO CHATBOT", page_icon="")
     st.title("COCO CHATBOT")
     st.text("안녕하세요. 코코박사입니다. 원하시는 질문의 카테고리를 선택해주세요")
     option=st.selectbox(

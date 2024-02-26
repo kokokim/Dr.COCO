@@ -26,7 +26,7 @@ script_dir = os.path.dirname(__file__)
 style_path = os.path.join(script_dir, "../style.css")
 
 with open(style_path) as css:
-    st.set_page_config(page_title="COCO PRODUCTBOT")
+    # st.set_page_config(page_title="COCO PRODUCTBOT")
     st.title("COCO PRODUCTBOT")
     st.text("안녕하세요. 코코 제품추천챗봇입니다. 원하시는 질문을 입력해주세요.")
     # st.text("현재 추천가능한 상품은 젖병, 유모차, 로션 입니다.")
