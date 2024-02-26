@@ -6,7 +6,17 @@ st.set_page_config(
     page_icon="👶🏻",
 )   
 
+#front 폴더
 script_dir = os.path.dirname(__file__)
+
+#code 폴더
+code_dir=os.path.dirname(script_dir)
+
+#root 폴더
+root_dir=os.path.dirname(code_dir)
+
+pic_data_dir=os.path.join(root_dir, 'data', 'pic')
+coco_image_path = os.path.join(pic_data_dir, 'coco.png')
 style_path = os.path.join(script_dir, "style.css")
 
 with open(style_path) as css:
@@ -17,8 +27,7 @@ with open(style_path) as css:
     st.write("# Welcome to COCO CHAT👶🏻")
     st.write(" ")
     
-    imagepath='../../data/pic/coco.png'
-    st.image(imagepath, width=400)
+    st.image(coco_image_path, width=400)
 
     st.write(" ")
     st.text(
