@@ -8,16 +8,15 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain.prompts import PromptTemplate
 from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain.chains import ConversationalRetrievalChain
 from langchain.chains.conversation.memory import ConversationSummaryMemory                                        
 import tiktoken
+from langchain.memory import ConversationSummaryBufferMemory
 
 os.environ['OPENAI_API_KEY'] == st.secrets["OPENAI_API_KEY"]
 os.environ["TOKENIZERS_PARALLELISM"] == st.secrets["TOKENIZERS_PARALLELISM"]
 
-import sys
-# sys.path.append('/mnt/c/KIMSEONAH/Test_Study/Chatbot')
-# print("hdhdhd", os.path.relpath(abspath, ""))
 
 # baby.py 파일의 절대 경로
 current_file_path = os.path.abspath(__file__)
@@ -47,7 +46,6 @@ documents_dicts={
     'babyfood':[]
 }
 
-
 # 문서 로드 및 벡터 DB 생성
 def load_documents_and_create_vector_db(folder_path, documents_dict):
     if not os.path.exists(folder_path) or not os.path.isdir(folder_path):
@@ -68,14 +66,13 @@ def select_category_and_load_db(category):
     selected_vector_db = FAISS.load_local(selected_db_path, ko)
     return selected_vector_db.as_retriever(search_kwargs={'k': 3})
 
-
 # 챗봇 모델 및 체인 설정
 def setup_chat_model_and_chain(category_retriever):
     prompt_template = PromptTemplate(
         input_variables=['question', 'context', 'chat_history'],
         template=template
     )
-
+    
     chain = ConversationalRetrievalChain.from_llm(
         llm=chat_model,
         retriever=category_retriever,
@@ -90,12 +87,14 @@ def setup_chat_model_and_chain(category_retriever):
 def chat_start(query, chain):
     if query == "그만":
         return "채팅을 종료합니다."
-    answer = chain(query)
-    return answer['answer']
+    response = chain(query)
+    
+    return response['answer']
 
 
 # 메인 함수: 사용자가 선택한 카테고리에 따라 챗봇을 설정하고 실행
 def main(category, query):
+    # baby_info_save
     load_documents_and_create_vector_db(folder_path, documents_dict)
     category_retriever = select_category_and_load_db(category)
     chain = setup_chat_model_and_chain(category_retriever)
@@ -129,6 +128,18 @@ memory = ConversationSummaryMemory(
     ai_prefix='### AI',
     output_key='answer',
     return_messages=True
+)
+memory.save_context(
+    {"input": "아이의 이름은 김동동이야."},
+    {"answer": "당신의 아이의 이름은 김동동이군요! 예쁜 이름입니다."}
+)
+memory.save_context(
+    {"input" : "아이의 성별은 남자아이야."},
+    {"answer":"당신의 아이의 성별은 남자아이이군요!"}
+)
+memory.save_context(
+    {"input":"아이가 태어난 날은 2023년 12월 25일이야."},
+    {"answer" : "당신의 아이는 2023년 12월 25일에 태어났군요. 지금은 2024년 2월 25일로 아기는 3개월이 되었어요."}
 )
 
 template="""

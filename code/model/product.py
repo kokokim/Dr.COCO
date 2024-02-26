@@ -1,12 +1,20 @@
 # 카테고리별 vectordb 생성 후 불러오기
 
 import os
+import streamlit as st
+from langchain.chat_models import ChatOpenAI
+from langchain_community.vectorstores import FAISS
+from langchain.prompts import PromptTemplate
+from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain.chains import ConversationalRetrievalChain
+from langchain_community.document_loaders.csv_loader import CSVLoader
+from langchain.chains.conversation.memory import ConversationSummaryMemory                                        
+import tiktoken
 
 os.environ['OPENAI_API_KEY'] == st.secrets["OPENAI_API_KEY"]
 os.environ["TOKENIZERS_PARALLELISM"] == st.secrets["TOKENIZERS_PARALLELISM"]
 
-import sys
-# sys.path.append('/mnt/c/KIMSEONAH/Test_Study/Chatbot')
 # product.py 파일의 절대 경로
 current_file_path = os.path.abspath(__file__)
 
@@ -24,15 +32,6 @@ raw_data_dir = os.path.join(root_dir, 'data', 'raw')
 
 # 'data/vectordb/product' 폴더로의 상대 경로
 folder_path = os.path.join(root_dir, 'data', 'vectordb', 'product')
-
-from langchain.chat_models import ChatOpenAI
-from langchain_community.vectorstores import FAISS
-from langchain.prompts import PromptTemplate
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.chains import ConversationalRetrievalChain
-from langchain_community.document_loaders.csv_loader import CSVLoader
-from langchain.chains.conversation.memory import ConversationSummaryMemory                                        
-import tiktoken
 
 
 # 문서 로드 및 벡터 DB 생성
@@ -109,9 +108,11 @@ memory = ConversationSummaryMemory(
 
 template="""
 ### You are an assistant who recommends products to parents. 
-# Answer questions using only the following context. If you don't know the answer, say you don't know and do not make it up: {context}
-Respond to questions in a helpful manner and engage in conversation. When asked about greetings, respond in a conversational way, and recommend products that parents might be interested in, but if you don't know the exact answer, say you don't know.
-If the product the user wants is not in vectordb, say it is not available.
+# When answering questions, use only the following context. If you don't know the exact answer, say you don't know :{context}
+# When recommending products, suggest them from the 11st website. Engage in conversation in a helpful manner. 
+# If asked about a specific product, provide a URL link where it can be purchased. 
+# If the product mentioned by the user is not something you have learned about, 
+# say that you cannot recommend it.
 {chat_history}
 ### Friend : {question}
 ### AI: """.strip()
