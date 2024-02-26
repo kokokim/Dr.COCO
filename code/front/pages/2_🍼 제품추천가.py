@@ -19,8 +19,8 @@ sys.path.append(model_dir)
 
 import product
 
-os.environ['OPENAI_API_KEY'] == st.secrets["OPENAI_API_KEY"]
-os.environ["TOKENIZERS_PARALLELISM"] == st.secrets["TOKENIZERS_PARALLELISM"]
+os.environ['OPENAI_API_KEY'] = st.secrets["OPENAI_API_KEY"]
+os.environ["TOKENIZERS_PARALLELISM"] = st.secrets["TOKENIZERS_PARALLELISM"]
 
 script_dir = os.path.dirname(__file__)
 style_path = os.path.join(script_dir, "../style.css")
