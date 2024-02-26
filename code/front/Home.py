@@ -1,10 +1,15 @@
 import streamlit as st
+import os
 
 st.set_page_config(
     page_title="COCO CHATBOT",
     page_icon="👶🏻",
 )   
-with open("style.css") as css:
+
+script_dir = os.path.dirname(__file__)
+style_path = os.path.join(script_dir, "style.css")
+
+with open(style_path) as css:
     st.markdown (f'<style>{css.read()}</style>', unsafe_allow_html=True)
 
     st.sidebar.text("Dr.COCO는 부모의 잠깐의 휴식을 \n최우선 가치로 생각합니다.")
