@@ -26,8 +26,8 @@ import streamlit as st
 from openai import OpenAI
 from PIL import Image # 위에서 선언 후 사용해야한다.
 
-os.environ['OPENAI_API_KEY'] == st.secrets["OPENAI_API_KEY"]
-os.environ["TOKENIZERS_PARALLELISM"] == st.secrets["TOKENIZERS_PARALLELISM"]
+os.environ['OPENAI_API_KEY'] = st.secrets["OPENAI_API_KEY"]
+os.environ["TOKENIZERS_PARALLELISM"] = st.secrets["TOKENIZERS_PARALLELISM"]
 
 client = OpenAI()
 
