@@ -5,39 +5,80 @@
     font-style: normal;
 }
 
-* {
-    font-family: 'IBMPlexSansKR-Regular'; 
-}
-span {
-    font-family: 'IBMPlexSansKR-Regular'; 
-    font-size: 18px;
-    font-weight: 700;
-    font-style: normal;
-    color: #091747;
+*, html, head, body, div, span {
+    font-family: 'IBMPlexSansKR-Regular';
 }
 
+
 /* sidebar */
-.st-emotion-cache-183lzff{
-    font-family: 'IBMPlexSansKR-Regular'; 
-    font-size: 14px;
+.st-emotion-cache-pkbazv.eczjsme5, .st-emotion-cache-17lntkn.eczjsme5 {
+    font-size: 18px;
     font-weight: 700;
-    font-style: normal;
-    color: #091747;
 }
-.st-emotion-cache-17lntkn.eczjsme5{
-    font-family: 'IBMPlexSansKR-Regular'; 
+
+/* 수면 */
+.sleepreport {
+    font-size: 16px;
+    font-weight: 700;
+    background-color: rgba(151, 166, 195, 0.25);
+    border-radius: 8px 7px 8px 7px;
+    padding: 7px;
+    text-align: center;
+    margin-top: 14px;
+}
+.sleeptext{
+    font-size: 14px;
+    font-weight: 600;
+    word-wrap: break-word;
+    background-color: white;
+    border-radius: 15px;
+    padding: 14px;
+}
+.lasttext{
     font-size: 14px;
     font-weight: 700;
-    font-style: normal;
-    color: #091747;
 }
 
 /* home */
-.st-emotion-cache-10trblm {
-    font-size: 32px;
-    text-align: center;
+.hometitle{
+    font-size: 36px;
+    font-weight: 700;
+}
+/* img{
+    margin-left:35%;
+} */
+.hheader{
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 3px;
+    margin-top: 0px;
+    width: fit-content;
+    padding: 8px;
+    border-radius: 20px;
+    background-color: #CCD3CA;
+}   
+.htext{
+    font-size: 15px;
+    font-weight: 600;
+    padding: 3px;
 }
 
-img{
-    margin-left:35%;
+/* baby */
+.babytitle{
+    font-size: 36px;
+    font-weight: 700;
+}
+.babytext{
+    font-size: 16px;
+    font-weight: 650;
+}
+
+/* product */
+.producttitle{
+    font-size: 36px;
+    font-weight: 700;
+}
+.producttext{
+    font-size: 16px;
+    font-weight: 650;
 }
