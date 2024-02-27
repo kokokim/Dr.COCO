@@ -34,6 +34,7 @@ os.environ['OPENAI_API_KEY'] = st.secrets["OPENAI_API_KEY"]
 os.environ["TOKENIZERS_PARALLELISM"] = st.secrets["TOKENIZERS_PARALLELISM"]
 
 client = OpenAI()
+alarm_text=Home.gosleeptext()
 
 script_dir = os.path.dirname(__file__)
 style_path = os.path.join(script_dir, "../style.css")
@@ -41,14 +42,13 @@ style_path = os.path.join(script_dir, "../style.css")
 with open(style_path) as css:
     st.markdown (f'<style>{css.read()}</style>', unsafe_allow_html=True)
     
-
 #사이드바
 st.sidebar.markdown(f"""
                     <div class="sleepreport">🌙어제의 동동이 수면레포트🌙</div>
                     """, unsafe_allow_html=True)
 st.sidebar.write("")
 
-alarm_text=Home.gosleeptext()
+
 if alarm_text:
     st.sidebar.markdown(f"""
     <div class="sleeptext"> {alarm_text} </div>""",
@@ -113,7 +113,7 @@ def stream_data(data):
         time.sleep(0.07)
     
 def generate_img(answer):
-    enhanced_prompt = f"{answer} The setting is a modern version, featuring Korean people, not Chinese, with no text included, and the image type should look like a typical drawing or illustration style."
+    enhanced_prompt = f"{answer} Create an illustration that captures a modern scene featuring only Korean individuals. The artwork should not include any text and must be in a typical drawing or illustration style. Avoid depicting characters from other countries such as China, India, or Indonesia. Ensure the image consists of a single scene without multiple scenarios unfolding within it."
     response=client.images.generate(
         model="dall-e-3",
                 prompt=enhanced_prompt,  # 답변을 기반으로 프롬프트 설정

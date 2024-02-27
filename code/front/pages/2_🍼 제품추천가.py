@@ -29,6 +29,7 @@ st.set_page_config(
     page_title="COCO CHATBOT", 
     page_icon="🤖"
     )
+alarm_text=Home.gosleeptext()
 
 script_dir = os.path.dirname(__file__)
 style_path = os.path.join(script_dir, "../style.css")
@@ -42,7 +43,6 @@ st.sidebar.markdown(f"""
                     """, unsafe_allow_html=True)
 st.sidebar.write("")
 
-alarm_text=Home.gosleeptext()
 if alarm_text:
     st.sidebar.markdown(f"""
     <div class="sleeptext"> {alarm_text} </div>""",
