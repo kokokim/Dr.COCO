@@ -16,8 +16,10 @@ model_dir = os.path.join(code_dir, 'model')
 
 # sys.path에 model 폴더의 경로 추가
 sys.path.append(model_dir)
+sys.path.append(app_dir)
 
 import product
+import Home
 
 os.environ['OPENAI_API_KEY'] = st.secrets["OPENAI_API_KEY"]
 os.environ["TOKENIZERS_PARALLELISM"] = st.secrets["TOKENIZERS_PARALLELISM"]
@@ -25,10 +27,34 @@ os.environ["TOKENIZERS_PARALLELISM"] = st.secrets["TOKENIZERS_PARALLELISM"]
 script_dir = os.path.dirname(__file__)
 style_path = os.path.join(script_dir, "../style.css")
 
-st.set_page_config(page_title="COCO PRODUCTBOT", page_icon="🤖")
+st.set_page_config(page_title="COCO PRODUCTBOT", page_icon="🍼")
 
 with open(style_path) as css:
     st.markdown (f'<style>{css.read()}</style>', unsafe_allow_html=True)
+    
+#사이드바
+st.sidebar.markdown(f"""
+                    <div class="sleepreport">🌙어제의 동동이 수면레포트🌙</div>
+                    """, unsafe_allow_html=True)
+st.sidebar.write("")
+
+alarm_text=Home.gosleeptext()
+if alarm_text:
+    st.sidebar.markdown(f"""
+    <div class="sleeptext"> {alarm_text} </div>""",
+    unsafe_allow_html=True
+    )
+else:
+    alarm_text+=sleep.main()
+    st.sidebar.markdown(f"""
+    <div class="sleeptext"> {alarm_text} </div>""",
+    unsafe_allow_html=True
+    )
+    
+st.sidebar.divider()
+st.sidebar.markdown(f"""
+                   <div class="lasttext">Dr.COCO는 부모의 짧은 휴식을 최우선 가치로 생각하고 모든 물음에 대해 신뢰로 응답하겠습니다.</div>""", unsafe_allow_html=True)
+
 
 st.markdown(f"""
             <div class="producttitle">COCO PRODUCTBOT🤖</div>

@@ -51,6 +51,9 @@ else:
     <div class="sleeptext"> {alarm_text} </div>""",
     unsafe_allow_html=True
     )
+
+def gosleeptext():
+    return alarm_text
     
 st.sidebar.divider()
 st.sidebar.markdown(f"""

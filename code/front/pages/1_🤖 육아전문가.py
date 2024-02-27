@@ -6,7 +6,7 @@ import time
 # 현재 스크립트의 디렉토리 (pages 폴더)
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-# pages 폴더의 상위 폴더 (app 폴더)로 이동
+# pages 폴더의 상위 폴더 (front 폴더)로 이동
 app_dir = os.path.dirname(current_dir)
 
 # app 폴더의 상위 폴더 (code 폴더)로 이동
@@ -17,8 +17,10 @@ model_dir = os.path.join(code_dir, 'model')
 
 # sys.path에 model 폴더의 경로 추가
 sys.path.append(model_dir)
+sys.path.append(app_dir)
 
 import baby
+import Home
 
 import streamlit as st
 from openai import OpenAI
@@ -36,6 +38,31 @@ st.set_page_config(page_title="COCO CHATBOT", page_icon="🤖")
 with open(style_path) as css:
     st.markdown (f'<style>{css.read()}</style>', unsafe_allow_html=True)
     
+
+#사이드바
+st.sidebar.markdown(f"""
+                    <div class="sleepreport">🌙어제의 동동이 수면레포트🌙</div>
+                    """, unsafe_allow_html=True)
+st.sidebar.write("")
+
+alarm_text=Home.gosleeptext()
+if alarm_text:
+    st.sidebar.markdown(f"""
+    <div class="sleeptext"> {alarm_text} </div>""",
+    unsafe_allow_html=True
+    )
+else:
+    alarm_text+=sleep.main()
+    st.sidebar.markdown(f"""
+    <div class="sleeptext"> {alarm_text} </div>""",
+    unsafe_allow_html=True
+    )
+    
+st.sidebar.divider()
+st.sidebar.markdown(f"""
+                   <div class="lasttext">Dr.COCO는 부모의 짧은 휴식을 최우선 가치로 생각하고 모든 물음에 대해 신뢰로 응답하겠습니다.</div>""", unsafe_allow_html=True)
+
+
 st.markdown(f"""
             <div class="babytitle">COCO CHATBOT🤖</div>
             <p class="babytext"> 안녕하세요. 코코박사입니다. 원하시는 질문의 카테고리를 선택해주세요.</p>

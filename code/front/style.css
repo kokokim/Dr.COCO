@@ -20,7 +20,8 @@
 .sleepreport {
     font-size: 16px;
     font-weight: 700;
-    background-color: rgba(151, 166, 195, 0.25);
+    color: white;
+    background-color: #7D7A79;
     border-radius: 8px 7px 8px 7px;
     padding: 7px;
     text-align: center;
@@ -43,10 +44,11 @@
 .hometitle{
     font-size: 36px;
     font-weight: 700;
+    text-align: center;
 }
-/* img{
+img{
     margin-left:35%;
-} */
+}
 .hheader{
     font-size: 16px;
     font-weight: 700;

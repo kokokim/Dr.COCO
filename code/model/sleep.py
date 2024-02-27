@@ -12,9 +12,6 @@ from langchain.chains.conversation.memory import ConversationSummaryMemory
 import tiktoken
 import pandas as pd
 
-os.environ['OPENAI_API_KEY'] = "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"
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
-
 # baby.py 파일의 절대 경로
 current_file_path = os.path.abspath(__file__)
 
