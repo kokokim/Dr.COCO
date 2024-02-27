@@ -65,6 +65,12 @@ st.markdown(f"""
             ,unsafe_allow_html=True)
 st.write(" ")
 
+# st.markdown(f"""
+#             <div class="imgdiv">
+#                 <img class="img", src='{coco_image_path}'>
+#             </div>
+#             """,
+#             unsafe_allow_html=True)
 st.image(coco_image_path, width=400)
 
 st.write(" ")
