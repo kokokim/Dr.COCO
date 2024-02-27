@@ -2,6 +2,8 @@
 import sys
 import os
 import time
+import streamlit as st
+from openai import OpenAI
 
 # 현재 스크립트의 디렉토리 (pages 폴더)
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -22,8 +24,10 @@ sys.path.append(app_dir)
 import baby
 import Home
 
-import streamlit as st
-from openai import OpenAI
+st.set_page_config(
+    page_title="COCO CHATBOT", 
+    page_icon="🤖"
+    )
 
 os.environ['OPENAI_API_KEY'] = st.secrets["OPENAI_API_KEY"]
 os.environ["TOKENIZERS_PARALLELISM"] = st.secrets["TOKENIZERS_PARALLELISM"]
@@ -32,8 +36,6 @@ client = OpenAI()
 
 script_dir = os.path.dirname(__file__)
 style_path = os.path.join(script_dir, "../style.css")
-
-st.set_page_config(page_title="COCO CHATBOT", page_icon="🤖")
 
 with open(style_path) as css:
     st.markdown (f'<style>{css.read()}</style>', unsafe_allow_html=True)

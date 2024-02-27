@@ -24,10 +24,13 @@ import Home
 os.environ['OPENAI_API_KEY'] = st.secrets["OPENAI_API_KEY"]
 os.environ["TOKENIZERS_PARALLELISM"] = st.secrets["TOKENIZERS_PARALLELISM"]
 
+st.set_page_config(
+    page_title="COCO CHATBOT", 
+    page_icon="🤖"
+    )
+
 script_dir = os.path.dirname(__file__)
 style_path = os.path.join(script_dir, "../style.css")
-
-st.set_page_config(page_title="COCO PRODUCTBOT", page_icon="🍼")
 
 with open(style_path) as css:
     st.markdown (f'<style>{css.read()}</style>', unsafe_allow_html=True)

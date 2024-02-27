@@ -4,6 +4,11 @@ from datetime import datetime
 import os
 import sys
 
+st.set_page_config(
+    page_title="COCO CHATBOT", 
+    page_icon="🤖"
+    )
+
 #front 폴더
 current_dir = os.path.dirname(os.path.abspath(__file__))
 code_dir=os.path.dirname(current_dir)
@@ -11,11 +16,6 @@ model_dir=os.path.join(code_dir, 'model')
 sys.path.append(model_dir)
 
 import sleep
-
-st.set_page_config(
-    page_title="COCO CHATBOT", 
-    page_icon="🤖"
-    )  
 
 #front 폴더
 script_dir = os.path.dirname(__file__)
