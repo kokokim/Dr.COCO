@@ -22,6 +22,7 @@ sys.path.append(model_dir)
 sys.path.append(app_dir)
 
 import baby
+import sleep
 import Home
 
 st.set_page_config(

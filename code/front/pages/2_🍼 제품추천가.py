@@ -19,6 +19,7 @@ sys.path.append(model_dir)
 sys.path.append(app_dir)
 
 import product
+import sleep
 import Home
 
 os.environ['OPENAI_API_KEY'] = st.secrets["OPENAI_API_KEY"]
@@ -60,7 +61,7 @@ st.sidebar.markdown(f"""
 
 
 st.markdown(f"""
-            <div class="producttitle">COCO PRODUCTBOT🤖</div>
+            <div class="producttitle">COCO PRODUCTBOT🍼</div>
             <p class="producttext"> 코코 제품추천챗봇입니다. 원하시는 질문을 입력해주세요.</p>
             """,
             unsafe_allow_html=True
