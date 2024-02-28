@@ -40,14 +40,14 @@ documents_dicts={
 }
 
 data={
-    'user_id': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    'num_daysleep': [4, 1, 2, 3, 1, 3, 2, 2, 1, 2, 3, 3, 2],
-    'time_daysleep': [180, 155, 120, 160, 132, 111, 143, 127, 88, 169, 175, 140, 176],
-    'time_nightsleep': [900, 840, 863, 788, 801, 893, 867, 916, 925, 848, 800, 833, 888],
-    'time_totalsleep': [1080, 995, 983, 948, 933, 1004, 1010, 1043, 1013, 1017, 975, 973, 1064],
-    'date': ['2024-02-16', '2024-02-17', '2024-02-18', '2024-02-19', '2024-02-20', '2024-02-21', '2024-02-22', '2024-02-23', '2024-02-24', '2024-02-25', '2024-02-26', '2024-02-27', '2024-02-28'],
-    'child_age': [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-    'child_name': ['동동이']*13
+    'user_id': [1, 1, 1, 1, 1, 1, 1],
+    'num_daysleep': [4, 1, 2, 3, 1, 3, 2],
+    'time_daysleep': [200, 255, 320, 260, 232, 198, 302],
+    'time_nightsleep': [600, 540, 563, 688, 582, 592, 608],
+    'time_totalsleep': [800, 795, 883, 948, 814, 790, 910],
+    'date': ['2024-02-22', '2024-02-23', '2024-02-24', '2024-02-25', '2024-02-26', '2024-02-27', '2024-02-28'],
+    'child_age': [3, 3, 3, 3, 3, 3, 3],
+    'child_name': ['동동이']*7
 }
 
 df=pd.DataFrame(data)
@@ -159,7 +159,8 @@ memory = ConversationSummaryMemory(
 template="""
 ### You are an assistant who helps with analyzing a baby's sleep.
 # Answer questions using only the following context: {context}
-When given data, please provide a reliable analysis based on that data. You must focus solely on the baby's sleep analysis and kindly explain the analysis results to the parents. 
+Please provide a reliable sleep analysis based on the given data. 
+The results should be comprised of no more than two paragraphs, and the explanation of the results must be conveyed kindly.
 If the analysis indicates that the health condition is not good, recommend visiting a doctor.
 {chat_history}
 ### Friend : {question}

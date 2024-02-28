@@ -40,6 +40,7 @@ st.sidebar.markdown(f"""
                     <div class="sleepreport">🌙어제의 동동이 수면레포트🌙</div>
                     """, unsafe_allow_html=True)
 st.sidebar.write("")
+
 if alarm_text:
     st.sidebar.markdown(f"""
     <div class="sleeptext"> {alarm_text} </div>""",

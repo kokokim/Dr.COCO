@@ -35,6 +35,11 @@
     border-radius: 15px;
     padding: 14px;
 }
+.sleeptext p{
+    font-size: 14px;
+    font-weight: 600;
+    word-wrap: break-word;
+}
 .lasttext{
     font-size: 14px;
     font-weight: 700;

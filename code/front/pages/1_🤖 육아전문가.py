@@ -72,7 +72,7 @@ st.markdown(f"""
             """,
             unsafe_allow_html=True)
 option=st.selectbox(
-    "",
+    "카테고리 선택창",
     ("신생아", "수유", "성장 및 발달", "육아", "지원제도", "이유식"),
     index=None,
     placeholder="Category...",
@@ -99,9 +99,7 @@ if prompt := st.chat_input("질문을 입력해주세요"): # Prompt for user in
     if option:
         st.session_state.page1_messages.append({"role": "user", "content": prompt}) #prompt에 답변 저장
     else:
-        st.sidebar.warning('카테고리를 선택해주세요', icon="⚠️")
-        st.sidebar.info('카테고리를 선택해주세요', icon='⚠️')
-        # 🤖🚨🔥⚠️
+        st.warning('카테고리를 선택해주세요', icon="⚠️")
         
 for message in st.session_state.page1_messages: # Display the prior chat messages
     with st.chat_message(message["role"]):
@@ -113,7 +111,12 @@ def stream_data(data):
         time.sleep(0.07)
     
 def generate_img(answer):
-    enhanced_prompt = f"{answer} Create an illustration that captures a modern scene featuring only Korean individuals. The artwork should not include any text and must be in a typical drawing or illustration style. Avoid depicting characters from other countries such as China, India, or Indonesia. Ensure the image consists of a single scene without multiple scenarios unfolding within it."
+    enhanced_prompt = f"""{answer}
+                    Create an illustration depicting a warm and intimate family atmosphere.
+                    The image should capture a happy Korean family or a baby. The characters should be dressed in casual attire, each with a soft smile.
+                    The color palette should be gentle and warm, contributing to an overall sense of warmth and happiness.
+                    """ 
+
     response=client.images.generate(
         model="dall-e-3",
                 prompt=enhanced_prompt,  # 답변을 기반으로 프롬프트 설정
