@@ -25,10 +25,10 @@ import Home
 os.environ['OPENAI_API_KEY'] = st.secrets["OPENAI_API_KEY"]
 os.environ["TOKENIZERS_PARALLELISM"] = st.secrets["TOKENIZERS_PARALLELISM"]
 
-st.set_page_config(
-    page_title="COCO CHATBOT", 
-    page_icon="🤖"
-    )
+# st.set_page_config(
+#     page_title="COCO CHATBOT", 
+#     page_icon="🤖"
+#     )
 alarm_text=Home.gosleeptext()
 
 script_dir = os.path.dirname(__file__)

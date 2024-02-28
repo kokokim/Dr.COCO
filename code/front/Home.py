@@ -53,8 +53,6 @@ else:
     unsafe_allow_html=True
     )
 
-def gosleeptext():
-    return alarm_text
     
 st.sidebar.divider()
 st.sidebar.markdown(f"""
@@ -88,3 +86,7 @@ st.markdown(f"""
                 <p class="htext"> 육아 용품을 추천해줍니다. 아이의 연령, 필요, 생활방식을 고려하여 개인화된 제품을 추천합니다.</p>
             </div>"""
             , unsafe_allow_html=True)
+
+
+def gosleeptext():
+    return alarm_text

@@ -4,6 +4,12 @@ import os
 import time
 import streamlit as st
 from openai import OpenAI
+import json
+
+# st.set_page_config(
+#     page_title="COCO CHATBOT", 
+#     page_icon="🤖"
+#     )
 
 # 현재 스크립트의 디렉토리 (pages 폴더)
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -24,11 +30,6 @@ sys.path.append(app_dir)
 import baby
 import sleep
 import Home
-
-st.set_page_config(
-    page_title="COCO CHATBOT", 
-    page_icon="🤖"
-    )
 
 os.environ['OPENAI_API_KEY'] = st.secrets["OPENAI_API_KEY"]
 os.environ["TOKENIZERS_PARALLELISM"] = st.secrets["TOKENIZERS_PARALLELISM"]
@@ -65,7 +66,6 @@ st.sidebar.divider()
 st.sidebar.markdown(f"""
                    <div class="lasttext">Dr.COCO는 부모의 짧은 휴식을 최우선 가치로 생각하고 모든 물음에 대해 신뢰로 응답하겠습니다.</div>""", unsafe_allow_html=True)
 
-
 st.markdown(f"""
             <div class="babytitle">COCO CHATBOT🤖</div>
             <p class="babytext"> 안녕하세요. 코코박사입니다. 원하시는 질문의 카테고리를 선택해주세요.</p>
@@ -100,10 +100,12 @@ if prompt := st.chat_input("질문을 입력해주세요"): # Prompt for user in
         st.session_state.page1_messages.append({"role": "user", "content": prompt}) #prompt에 답변 저장
     else:
         st.warning('카테고리를 선택해주세요', icon="⚠️")
-        
+
+
 for message in st.session_state.page1_messages: # Display the prior chat messages
     with st.chat_message(message["role"]):
         st.write(message["content"])
+
         
 def stream_data(data):
     for word in data.split():
@@ -126,6 +128,39 @@ def generate_img(answer):
     )
     image_url=response.data[0].url
     return image_url
+
+def save_data(image_url, question, answer, filename="picture.json"):
+    # 파일이 존재하면 기존 데이터를 불러오고, 그렇지 않으면 빈 리스트를 생성
+    if os.path.exists(filename):
+        with open(filename, "r") as file:
+            try:
+                data = json.load(file)
+                # 불러온 데이터가 딕셔너리 타입이면 리스트로 변환
+                if isinstance(data, dict):
+                    data = [data]
+            except json.JSONDecodeError:  # 파일이 비어있는 경우
+                data = []
+    else:
+        data = []
+    
+    # 새로운 데이터 추가
+    new_entry = {
+        "image_url": image_url,
+        "metadata": {
+            "question": question,
+            "answer": answer
+        }
+    }
+    data.append(new_entry)  # 이 부분에서 오류가 발생했었습니다
+    
+    # 파일에 업데이트된 데이터 저장
+    with open(filename, "w") as file:
+        json.dump(data, file, indent=4)
+        
+def load_data(filename="picture.json"):
+    with open(filename, "r") as file:
+        data=json.load(file)
+    return data
         
 # 쿼리를 채팅 엔진에 전달하고 응답을 표시
 if st.session_state.page1_messages[-1]["role"] != "assistant":
@@ -134,8 +169,10 @@ if st.session_state.page1_messages[-1]["role"] != "assistant":
             response = baby.main(categories.get(option), prompt)
             st.write_stream(stream_data(response))
             img=generate_img(response)
+            img_url=img
             st.image(img)
+            save_data(img, prompt, response)
+            print(load_data())
             message = {"role": "assistant", "content": response}
             st.session_state.page1_messages.append(message) # Add response to message history
             
-
